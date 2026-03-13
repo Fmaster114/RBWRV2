@@ -14,63 +14,54 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden;
             text-shadow: 0 0 10px #00ff41;
         }
         .container {
             border: 2px solid #00ff41;
-            padding: 60px;
+            padding: 50px;
             background: rgba(0, 255, 65, 0.05);
-            box-shadow: inset 0 0 20px #00ff41, 0 0 30px rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
             text-align: center;
         }
-        h1 { font-size: 2rem; margin: 0 0 20px 0; letter-spacing: 6px; }
-        #timer { 
-            font-size: 6rem; 
-            font-weight: bold; 
-            font-variant-numeric: tabular-nums; /* Prevents numbers from jumping */
-        }
-        .status { margin-top: 20px; font-size: 1rem; opacity: 0.8; }
+        h1 { font-size: 1.8rem; margin: 0 0 20px 0; letter-spacing: 4px; }
+        #timer { font-size: 6rem; font-weight: bold; font-variant-numeric: tabular-nums; }
+        .status { margin-top: 20px; font-size: 1rem; opacity: 0.7; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>RBWR V2.0 LAUNCH</h1>
+        <h1>RBWR V2.0 DEPLOYMENT</h1>
         <div id="timer">00:00:00</div>
-        <p class="status">DETECTION: 21:00 LOCAL TIME</p>
+        <p class="status">SYNCED TO 19:00 (7:00 PM) LOCAL TIME</p>
     </div>
 
     <script>
         function update() {
             const now = new Date();
             
-            // This creates a target for 9:00 PM (21:00) TODAY in YOUR timezone
+            // Setting target to 19:00 (7:00 PM) today
             const target = new Date();
-            target.setHours(21, 0, 0, 0);
+            target.setHours(19, 0, 0, 0); 
 
             const diff = target - now;
 
-            // If it's already past 9 PM, show LIVE
             if (diff <= 0) {
                 document.getElementById("timer").innerHTML = "00:00:00";
                 document.querySelector("h1").innerHTML = "UPDATE LIVE";
                 return;
             }
 
-            // Calculate hours, minutes, seconds
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            const h = Math.floor(diff / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-            // Format with leading zeros
             document.getElementById("timer").innerHTML = 
-                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
         }
 
-        // Updates every 1000ms (1 second)
         setInterval(update, 1000);
-        update(); // Run immediately so there's no 1-second delay on load
+        update();
     </script>
 </body>
 </html>
