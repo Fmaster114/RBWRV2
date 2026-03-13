@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RBWR V2.0 | Saarbrücken Sync</title>
+    <title>RBWR V2.0 | LIVE</title>
     <style>
         body {
             background-color: #050505;
@@ -33,16 +33,16 @@
     <div class="container">
         <h1>RBWR V2.0 DEPLOYMENT</h1>
         <div id="timer">00:00:00</div>
-        <p class="location">STATION: SAARBRÜCKEN | TARGET: 19:00</p>
+        <p class="location">STATION: SAARBRÜCKEN | TARGET: 20:00 (8:00 PM)</p>
     </div>
 
     <script>
         function update() {
             const now = new Date();
             
-            // Set target to 19:00:00 (7:00 PM) today
+            // TARGET SET TO 20:00 (8:00 PM)
             const target = new Date();
-            target.setHours(19, 0, 0, 0); 
+            target.setHours(20, 0, 0, 0); 
 
             const diff = target - now;
 
