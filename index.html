@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RBWR Version 2</title>
+    <title>RBWR V2.0 | LIVE</title>
     <style>
         body {
             background-color: #050505;
@@ -14,30 +14,24 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            text-shadow: 0 0 15px #00ff41;
-            overflow: hidden;
+            text-shadow: 0 0 10px #00ff41;
         }
-        .content {
+        .container {
+            border: 2px solid #00ff41;
+            padding: 50px;
+            background: rgba(0, 255, 65, 0.05);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
             text-align: center;
         }
-        h1 { 
-            font-size: 2.5rem; 
-            margin: 0; 
-            letter-spacing: 10px;
-            opacity: 0.9;
-        }
-        #timer { 
-            font-size: 8rem; 
-            font-weight: bold; 
-            margin-top: 10px;
-            font-variant-numeric: tabular-nums;
-        }
+        h1 { font-size: 1.8rem; margin: 0 0 20px 0; letter-spacing: 4px; }
+        #timer { font-size: 6.5rem; font-weight: bold; font-variant-numeric: tabular-nums; }
+        .location { margin-top: 15px; color: #008f11; font-size: 0.9rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
-    <div class="content">
-        <h1>RBWR VERSION 2</h1>
+    <div class="container">
+        <h1>RBWR V2.0 DEPLOYMENT</h1>
         <div id="timer">00:00:00</div>
     </div>
 
@@ -45,14 +39,15 @@
         function update() {
             const now = new Date();
             
-            // TARGET: 21:00 (9:00 PM) Today
+            // TARGET SET TO 20:00 (8:00 PM)
             const target = new Date();
-            target.setHours(21, 0, 0, 0); 
+            target.setHours(20, 0, 0, 0); 
 
             const diff = target - now;
 
             if (diff <= 0) {
                 document.getElementById("timer").innerHTML = "00:00:00";
+                document.querySelector("h1").innerHTML = "SYSTEMS ONLINE";
                 return;
             }
 
