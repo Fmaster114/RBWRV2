@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RBWR V2.0 | LIVE</title>
+    <title>RBWR V2.0 | Saarbrücken Sync</title>
     <style>
         body {
             background-color: #050505;
@@ -24,8 +24,8 @@
             text-align: center;
         }
         h1 { font-size: 1.8rem; margin: 0 0 20px 0; letter-spacing: 4px; }
-        #timer { font-size: 6rem; font-weight: bold; font-variant-numeric: tabular-nums; }
-        .status { margin-top: 20px; font-size: 1rem; opacity: 0.7; }
+        #timer { font-size: 6.5rem; font-weight: bold; font-variant-numeric: tabular-nums; }
+        .location { margin-top: 15px; color: #008f11; font-size: 0.9rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -33,22 +33,22 @@
     <div class="container">
         <h1>RBWR V2.0 DEPLOYMENT</h1>
         <div id="timer">00:00:00</div>
-        <p class="status">LIVE TARGET: 21:00 (9:00 PM)</p>
+        <p class="location">STATION: SAARBRÜCKEN | TARGET: 19:00</p>
     </div>
 
     <script>
         function update() {
             const now = new Date();
             
-            // TARGET: 9:00 PM (21:00) TODAY
+            // Set target to 19:00:00 (7:00 PM) today
             const target = new Date();
-            target.setHours(21, 0, 0, 0); 
+            target.setHours(19, 0, 0, 0); 
 
             const diff = target - now;
 
             if (diff <= 0) {
                 document.getElementById("timer").innerHTML = "00:00:00";
-                document.querySelector("h1").innerHTML = "UPDATE LIVE";
+                document.querySelector("h1").innerHTML = "SYSTEMS ONLINE";
                 return;
             }
 
