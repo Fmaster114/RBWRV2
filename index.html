@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RBWR V2.0 | LIVE COUNTDOWN</title>
+    <title>RBWR V2.0 | LIVE</title>
     <style>
         body {
             background-color: #050505;
@@ -15,62 +15,62 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            text-shadow: 0 0 10px #00ff41;
         }
-        .monitor {
+        .container {
             border: 2px solid #00ff41;
-            padding: 50px;
+            padding: 60px;
             background: rgba(0, 255, 65, 0.05);
-            box-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
+            box-shadow: inset 0 0 20px #00ff41, 0 0 30px rgba(0, 255, 65, 0.2);
             text-align: center;
-            width: 80%;
-            max-width: 600px;
         }
-        h1 { font-size: 1.8rem; letter-spacing: 5px; margin: 0; }
+        h1 { font-size: 2rem; margin: 0 0 20px 0; letter-spacing: 6px; }
         #timer { 
-            font-size: 5.5rem; 
+            font-size: 6rem; 
             font-weight: bold; 
-            margin: 30px 0;
-            text-shadow: 0 0 20px #00ff41;
+            font-variant-numeric: tabular-nums; /* Prevents numbers from jumping */
         }
-        .status { font-size: 1.1rem; color: #008f11; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
+        .status { margin-top: 20px; font-size: 1rem; opacity: 0.8; }
     </style>
 </head>
 <body>
 
-    <div class="monitor">
-        <h1>RBWR V2.0 DEPLOYMENT</h1>
+    <div class="container">
+        <h1>RBWR V2.0 LAUNCH</h1>
         <div id="timer">00:00:00</div>
-        <div class="status">>> CONNECTED TO CENTRAL CORE...</div>
+        <p class="status">DETECTION: 21:00 LOCAL TIME</p>
     </div>
 
     <script>
-        // TARGET TIME: 21:00:00 German Time (CET) today.
-        // This is a fixed timestamp so it is "Live" for everyone.
-        const targetTimestamp = 1741896000000; 
+        function update() {
+            const now = new Date();
+            
+            // This creates a target for 9:00 PM (21:00) TODAY in YOUR timezone
+            const target = new Date();
+            target.setHours(21, 0, 0, 0);
 
-        function updateLiveTimer() {
-            const now = Date.now();
-            const diff = targetTimestamp - now;
+            const diff = target - now;
 
+            // If it's already past 9 PM, show LIVE
             if (diff <= 0) {
                 document.getElementById("timer").innerHTML = "00:00:00";
-                document.querySelector("h1").innerHTML = "V2.0 IS LIVE";
-                document.querySelector(".status").innerHTML = "SYSTEMS OPERATIONAL";
+                document.querySelector("h1").innerHTML = "UPDATE LIVE";
                 return;
             }
 
-            const h = Math.floor(diff / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            // Calculate hours, minutes, seconds
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
+            // Format with leading zeros
             document.getElementById("timer").innerHTML = 
-                `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
         }
 
-        // Run every second
-        setInterval(updateLiveTimer, 1000);
-        updateLiveTimer();
+        // Updates every 1000ms (1 second)
+        setInterval(update, 1000);
+        update(); // Run immediately so there's no 1-second delay on load
     </script>
 </body>
 </html>
