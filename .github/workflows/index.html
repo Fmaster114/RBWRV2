@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RBWR V2.0 Launch</title>
+    <style>
+        body {
+            background-color: #050505;
+            color: #00ff41;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            border: 2px solid #00ff41;
+            padding: 50px;
+            background: rgba(0, 255, 65, 0.05);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+            text-align: center;
+            max-width: 90%;
+        }
+        h1 { font-size: 2rem; margin-bottom: 10px; letter-spacing: 5px; }
+        #timer { 
+            font-size: clamp(3rem, 10vw, 6rem); 
+            font-weight: bold; 
+            margin: 20px 0; 
+            font-variant-numeric: tabular-nums;
+        }
+        .info { font-size: 1rem; color: #008f11; border-top: 1px solid #008f11; padding-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>RBWR V2.0 RELEASE</h1>
+        <div id="timer">00:00:00</div>
+        <p class="info">GLOBAL SYNC: MARCH 13 @ 21:00 CET</p>
+    </div>
+
+    <script>
+        // This is the exact moment for 9:00 PM German Time
+        const targetTime = 1741896000000; 
+
+        function update() {
+            const now = Date.now();
+            const diff = targetTime - now;
+
+            if (diff <= 0) {
+                document.getElementById("timer").innerHTML = "V2.0 LIVE";
+                document.querySelector("h1").innerHTML = "SYSTEMS ONLINE";
+                return;
+            }
+
+            // Calculations
+            const h = Math.floor(diff / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // Display with leading zeros
+            document.getElementById("timer").innerHTML = 
+                `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        setInterval(update, 1000);
+        update();
+    </script>
+</body>
+</html>
