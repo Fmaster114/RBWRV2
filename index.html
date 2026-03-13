@@ -3,119 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RBWR V2.0 | Reactor Status</title>
+    <title>RBWR V2.0 Countdown</title>
     <style>
-        :root {
-            --glow: #00ff41;
-            --bg: #050505;
-        }
-
         body {
-            background-color: var(--bg);
-            color: var(--glow);
+            background-color: #050505;
+            color: #00ff41;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden;
         }
-
-        .dashboard {
+        .box {
+            border: 2px solid #00ff41;
+            padding: 40px;
             text-align: center;
-            position: relative;
-            padding: 60px;
-            border: 1px solid rgba(0, 255, 65, 0.3);
-            background: radial-gradient(circle, rgba(0, 255, 65, 0.05) 0%, rgba(0,0,0,1) 100%);
+            background: rgba(0, 255, 65, 0.05);
+            box-shadow: 0 0 20px #00ff41;
         }
-
-        h1 {
-            font-size: 1.5rem;
-            letter-spacing: 8px;
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px var(--glow);
-        }
-
-        /* The Circular Countdown Visual */
-        .timer-circle {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #timer {
-            font-size: 3.5rem;
-            font-weight: bold;
-            z-index: 2;
-        }
-
-        .labels {
-            font-size: 0.8rem;
-            margin-top: 10px;
-            opacity: 0.6;
-            letter-spacing: 2px;
-        }
-
-        .status-msg {
-            margin-top: 40px;
-            font-size: 1rem;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
+        h1 { letter-spacing: 5px; margin-bottom: 20px; }
+        #timer { font-size: 5rem; font-weight: bold; }
+        .footer { margin-top: 20px; color: #008f11; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-    <div class="dashboard">
-        <h1>SYSTEM STABILIZATION</h1>
-        
-        <div class="timer-circle">
-            <div id="timer">00:00:00</div>
-        </div>
-        
-        <div class="labels">HRS : MIN : SEC</div>
-        
-        <div class="status-msg">>> INJECTING V2.0 CORE MODULES...</div>
+    <div class="box">
+        <h1>RBWR V2.0 UPDATE</h1>
+        <div id="timer">00:00:00</div>
+        <p class="footer">TARGET TIME: 21:00 (9:00 PM)</p>
     </div>
 
     <script>
-        // TARGET: March 13, 2026 @ 21:00 (9:00 PM) German Time
-        // Unix: 1741896000000
-        const targetTime = 1741896000000; 
+        function updateTimer() {
+            const now = new Date();
+            
+            // Create a target for 9:00 PM TODAY
+            const target = new Date();
+            target.setHours(21, 0, 0, 0);
 
-        function update() {
-            const now = Date.now();
-            const diff = targetTime - now;
+            // If it's already past 9 PM, it shows 00:00:00
+            let diff = target - now;
 
             if (diff <= 0) {
-                document.getElementById("timer").innerHTML = "ONLINE";
-                document.querySelector("h1").innerHTML = "V2.0 DEPLOYED";
-                document.querySelector(".status-msg").innerHTML = "FACILITY OPERATIONAL";
+                document.getElementById("timer").innerHTML = "00:00:00";
+                document.querySelector("h1").innerHTML = "UPDATE RELEASED";
                 return;
             }
 
-            // Time math
-            const hours = Math.floor((diff / (1000 * 60 * 60)));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            const h = Math.floor(diff / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-            // Update display
             document.getElementById("timer").innerHTML = 
-                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
         }
 
-        setInterval(update, 1000);
-        update();
+        // Update every 1 second
+        setInterval(updateTimer, 1000);
+        updateTimer();
     </script>
 </body>
 </html>
